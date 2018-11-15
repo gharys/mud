@@ -4,11 +4,11 @@ import json, os, pathlib
 savedir = "saves"
 
 
-def save_name(savenum):
+def save_name(savenum):  # build complete directory for the save
     return savedir + "/save" + str(savenum) + ".json"
 
 
-def save(savenum, data):  # default save procedure
+def save(savenum, data):  # save the data in save#.json
     # variables
     savename = save_name(savenum)
     savelocation = savename
@@ -17,7 +17,7 @@ def save(savenum, data):  # default save procedure
         json.dump(data, outfile, indent=3)
 
 
-def useropenchoice(q):  # asks user to give own input
+def user_open_choice(q):  # asks user to give own input
     print(q)  # q as the question
     var = input()
     while var == "": # checks if input is not empty
@@ -27,7 +27,7 @@ def useropenchoice(q):  # asks user to give own input
     return var
 
 
-def userchoice(q,*option):  # multiple choice question
+def user_choice(q,*option):  # multiple choice question
 
     print(q)
 
@@ -35,7 +35,7 @@ def userchoice(q,*option):  # multiple choice question
         print(i+1, ": ", option[i])
     choice = int(input())
 
-    while  choice < 1 or choice > len(option ):  # checks for valid input
+    while choice < 1 or choice > len(option ):  # checks for valid input
         print("Invalid input!, please choose a number between 1 and ", len(option))
         print(q)
         choice = int(input())
@@ -43,7 +43,22 @@ def userchoice(q,*option):  # multiple choice question
     return option[choice]
 
 
-def newGame():  # starts new game by making a new save file and procedure of making a character
+def assign_attributes(data,hp,sp,mp,str,defe,dex,wis,cha):  # assign given value to all atributes
+    data["character"][0]["attributes"][0]["healthp"] = hp
+    data["character"][0]["attributes"][0]["staminap"] = sp
+    data["character"][0]["attributes"][0]["magicp"] = mp
+    data["character"][0]["attributes"][0]["strength"] = str
+    data["character"][0]["attributes"][0]["defence"] = defe
+    data["character"][0]["attributes"][0]["dexterity"] = dex
+    data["character"][0]["attributes"][0]["wisdom"] = wis
+    data["character"][0]["attributes"][0]["charisma"] = cha
+
+    return data
+
+def assign_ability(data,type,abilityname,discription):
+    data["character"][0]["abilities"][0][type][0][abilityname][0][discription]
+
+def new_game():  # starts new game by making a new save file and procedure of making a character
 
     pathlib.Path(savedir).mkdir(parents=True, exist_ok=True)  # create directory if it not exists
 
@@ -57,15 +72,26 @@ def newGame():  # starts new game by making a new save file and procedure of mak
             "gender": "male",
             "name": "0",
             "class": "0",
+            "level": "1",
             "attributes": [{
+                "healthp": "0",
+                "staminap": "0",
+                "magicp": "0",
                 "strength": "0",
-                "stamina": "0",
                 "defence": "0",
                 "dexterity": "0",
-                "intelligence": "0",
-                "charisma": "0",
                 "wisdom": "0",
+                "charisma": "0",
                 }],
+            "abilities":[{
+                "passive":[{
+
+                }],
+                "active":[{
+
+                }]
+
+            }],
             "status_effects": [{
 
                 }]
@@ -87,18 +113,33 @@ def newGame():  # starts new game by making a new save file and procedure of mak
     }
 
     # get gender as string via input
-    gender = useropenchoice("Give the gender of your hero: ")
+    gender = user_open_choice("Give the gender of your hero: ")
     data["character"][0]["gender"] = gender
     save(savenum,data)
 
     # get name as string via input
-    name = useropenchoice("Give a name for your hero: ")
-    data["character"][0]["name"] = name
+    heroname = user_open_choice("Give a name for your hero: ")
+    data["character"][0]["name"] = heroname
     save(savenum,data)
 
     # get class via multiple choice
-    proffesion = userchoice("What class is your hero", "warrior", "mage", "rogue")
+    proffesion = user_choice("What class is your hero", "warrior", "mage", "hunter", "priest", "druid", "paladin")
     data["character"][0]["class"] = proffesion
     save(savenum, data)
 
+    # based on class choice give build class -hp,sp,mp,str,defe,dex,wis,cha-
+    if proffesion == "warrior":
+        assign_attributes(data, 130, 120, 50, 14, 10, 8, 6, 10)
+    elif proffesion == "mage":
+        assign_attributes(data, 80, 80, 140, 8, 6, 10, 12, 14)
+    elif proffesion == "hunter":
+        assign_attributes(data, 110, 130, 60, 12, 8, 14, 8, 8)
+    elif proffesion == "priest":
+        assign_attributes(data, 70, 100, 130, 8, 8, 8, 14, 14)
+    elif proffesion == "druid":
+        assign_attributes(data, 110, 100, 90, 10, 10, 12, 12, 6)
+    elif proffesion == "paladin":
+        assign_attributes(data, 150, 80, 70, 8, 14, 8, 8, 12)
+
+    save(savenum, data)
 

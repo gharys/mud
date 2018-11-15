@@ -1,3 +1,3 @@
 from mud import Game
 
-Game.newGame()
+Game.new_game()
