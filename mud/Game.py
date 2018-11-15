@@ -12,7 +12,7 @@ def save(savenum, data): # default save procedure
 
     # variables
     savename = save_name(savenum)
-    savelocation = savedir + "/" + savename
+    savelocation =  savename
     # variables
     with open(savelocation, "w") as outfile:
         json.dump(data, outfile, indent=3)
@@ -40,10 +40,24 @@ def newGame(): # starts new game by making a new save file
                 "intelligence": "0",
                 "charisma": "0",
                 "wisdom": "0",
+                }],
+            "status_effects": [{
+
                 }]
+        }],
+        "items": [{
+            "key_items": [{
+
             }],
-        "item": [{
-            
+            "consumables": [{
+
+            }],
+            "weapons": [{
+
+            }],
+            "armor": [{
+
+            }]
         }]
     }
 
@@ -60,4 +74,5 @@ def newGame(): # starts new game by making a new save file
     print("What class is your hero")
     proffesion = input()
     data["character"][0]["class"] = proffesion
+    save(savenum, data)
 

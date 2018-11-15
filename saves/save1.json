@@ -4,7 +4,37 @@
       {
          "gender": "a",
          "name": "a",
-         "class": "0"
+         "class": "0",
+         "attributes": [
+            {
+               "strength": "0",
+               "stamina": "0",
+               "defence": "0",
+               "dexterity": "0",
+               "intelligence": "0",
+               "charisma": "0",
+               "wisdom": "0"
+            }
+         ],
+         "status_effects": [
+            {}
+         ]
+      }
+   ],
+   "items": [
+      {
+         "key_items": [
+            {}
+         ],
+         "consumables": [
+            {}
+         ],
+         "weapons": [
+            {}
+         ],
+         "armor": [
+            {}
+         ]
       }
    ]
 }
