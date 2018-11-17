@@ -2,20 +2,20 @@
    "savenumber": 1,
    "character": [
       {
-         "gender": "female",
-         "name": "anna",
-         "class": "priest",
+         "gender": "male",
+         "name": "ben",
+         "class": "warrior",
          "level": "1",
          "attributes": [
             {
-               "healthp": 70,
-               "staminap": 100,
-               "magicp": 130,
-               "strength": 8,
-               "defence": 8,
-               "dexterity": 8,
-               "wisdom": 14,
-               "charisma": 14
+               "healthp": "0",
+               "staminap": "0",
+               "magicp": "0",
+               "strength": "0",
+               "defence": "0",
+               "dexterity": "0",
+               "wisdom": "0",
+               "charisma": "0"
             }
          ],
          "abilities": [

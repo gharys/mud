@@ -55,8 +55,10 @@ def assign_attributes(data,hp,sp,mp,str,defe,dex,wis,cha):  # assign given value
 
     return data
 
-def assign_ability(data,type,abilityname,discription):
-    data["character"][0]["abilities"][0][type][0][abilityname][0][discription]
+def assign_ability(data,type,abilityname,attribute):
+    new = abilityname: [{attribute }]
+    data["character"][0]["abilities"][0][abilityname][0][attribute]
+
 
 def new_game():  # starts new game by making a new save file and procedure of making a character
 
@@ -84,12 +86,7 @@ def new_game():  # starts new game by making a new save file and procedure of ma
                 "charisma": "0",
                 }],
             "abilities":[{
-                "passive":[{
 
-                }],
-                "active":[{
-
-                }]
 
             }],
             "status_effects": [{
@@ -130,6 +127,7 @@ def new_game():  # starts new game by making a new save file and procedure of ma
     # based on class choice give build class -hp,sp,mp,str,defe,dex,wis,cha-
     if proffesion == "warrior":
         assign_attributes(data, 130, 120, 50, 14, 10, 8, 6, 10)
+        assign_ability(data,"active", "shield bash", "ram your shield in to the enemy, stunning them for 1 turn" )
     elif proffesion == "mage":
         assign_attributes(data, 80, 80, 140, 8, 6, 10, 12, 14)
     elif proffesion == "hunter":
